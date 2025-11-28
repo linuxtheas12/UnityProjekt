@@ -2,12 +2,12 @@
 
 === main ===
 Which pokemon do you chose
-    +[Zidia]
-        ->chosen("Zidia")
+    +[Marek]
+        ->chosen("Marek")
     +[Artur]
         ->chosen("Artur")
-    +[D4vd]
-        ->chosen("D4vd")
+    +[David]
+        ->chosen("David")
 
 
 === chosen(pokemon) ===
