@@ -255,6 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelTrigger
   levelToLoad: Sempokracujeme
+  dialogueManager: {fileID: 699521579}
 --- !u!61 &58938263
 BoxCollider2D:
   m_ObjectHideFlags: 0

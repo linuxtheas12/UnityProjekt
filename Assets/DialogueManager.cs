@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 public class DialogueManager : MonoBehaviour
 {
     private static DialogueManager instance;
-
+    public bool correctChoiceMade { get; private set; } = false;
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
@@ -206,7 +206,16 @@ public class DialogueManager : MonoBehaviour
             // Log all tags
             foreach (string tag in tags)
             {
-                Debug.Log("Tag: " + tag);
+                if (tag == "CORRECT_CHOICE")
+                {
+                    Debug.Log("Správna voľba bola zvolená!");
+                    correctChoiceMade = true; // Uloženie do premennej
+                }
+                if (tag == "WRONG_CHOICE")
+                {
+                    Debug.Log("Nesprávna voľba bola zvolená!");
+                    correctChoiceMade = false; // Voliteľné
+                }
             }
 
             // Show choices if any
