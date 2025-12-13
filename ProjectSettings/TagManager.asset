@@ -14,7 +14,7 @@ TagManager:
   - Ground
   - Player
   - Wolfie
-  - 
+  - Screen
   - 
   - 
   - 
@@ -61,6 +61,9 @@ TagManager:
     locked: 0
   - name: Companion
     uniqueID: 2078958845
+    locked: 0
+  - name: Screen
+    uniqueID: 2744428403
     locked: 0
   m_RenderingLayers:
   - Default
