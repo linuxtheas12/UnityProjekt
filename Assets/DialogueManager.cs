@@ -147,7 +147,7 @@ public class DialogueManager : MonoBehaviour
         UpdateChoiceUI();
     }
 
-    private void MakeChoice(int index)
+    public void MakeChoice(int index)
     {
         currentStory.ChooseChoiceIndex(index);
         currentChoiceIndex = 0;
@@ -187,12 +187,29 @@ public class DialogueManager : MonoBehaviour
         currentChoices = null;
     }
 
-
     private void ContinueStory()
     {
         if (currentStory.canContinue)
         {
-            dialogueText.text = currentStory.Continue();
+            // Get the next line of text
+            string text = currentStory.Continue();
+
+            // Store all tags for this line
+            List<string> tags = currentStory.currentTags;
+
+            // Display the text in the UI
+            dialogueText.text = text;
+
+            // Log the text
+            Debug.Log("Line text: " + text);
+
+            // Log all tags
+            foreach (string tag in tags)
+            {
+                Debug.Log("Tag: " + tag);
+            }
+
+            // Show choices if any
             DisplayChoices();
         }
         else
@@ -202,6 +219,24 @@ public class DialogueManager : MonoBehaviour
     }
 
 
+
+
+
+    /*
+        private void ContinueStory()
+        {
+            if (currentStory.canContinue)
+            {
+                dialogueText.text = currentStory.Continue();
+                DisplayChoices();
+            }
+            else
+            {
+                StartCoroutine(ExitDialogueMode());
+            }
+        }
+
+        */
     // === CHOICES =========
 
     private void DisplayChoices()
