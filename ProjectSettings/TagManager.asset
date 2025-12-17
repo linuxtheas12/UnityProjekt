@@ -11,9 +11,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Ground
+  - Player
+  - Wolfie
   - 
   - 
   - 
@@ -40,6 +40,27 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: 1Sky
+    uniqueID: 3295585059
+    locked: 0
+  - name: 2Clounds
+    uniqueID: 3752699347
+    locked: 0
+  - name: 3Mountain
+    uniqueID: 28510839
+    locked: 0
+  - name: 4GreenMountain
+    uniqueID: 1136309519
+    locked: 0
+  - name: 5Road
+    uniqueID: 3952266241
+    locked: 0
+  - name: Player
+    uniqueID: 3421155805
+    locked: 0
+  - name: Companion
+    uniqueID: 2078958845
     locked: 0
   m_RenderingLayers:
   - Default

@@ -44,6 +44,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (DialogueManager.GetInstance().dialogueIsPlaying)
+        { 
+            return;
+        
+        }
+
+
         rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
     }
 
