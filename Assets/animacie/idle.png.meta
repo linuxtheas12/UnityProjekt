@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 77e84d03f996c1540a8bd8b86293521f
+guid: 2b592637902a3d147a7a8d503c827b5c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,11 +110,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tile-animacie-unfinished_0
+      name: idle_0
       rect:
         serializedVersion: 2
-        x: 71
-        y: 863
+        x: 49
+        y: 908
         width: 74
         height: 137
       alignment: 1
@@ -125,20 +125,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a449d631309bcf14ea61acab9d53ddb3
-      internalID: 475827678
+      spriteID: e38a09717c1cf054792b51e6e8c1d350
+      internalID: 2031597756
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tile-animacie-unfinished_1
+      name: idle_1
       rect:
         serializedVersion: 2
-        x: 216
-        y: 863
+        x: 194
+        y: 908
         width: 73
-        height: 138
+        height: 139
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,42 +147,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e4749c43421abe4999776ed0a70f781
-      internalID: -1265748112
+      spriteID: e5f37f60c8135774aa50f9bbdd4c49a9
+      internalID: 79399829
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tile-animacie-unfinished_2
+      name: idle_2
       rect:
         serializedVersion: 2
-        x: 360
-        y: 863
-        width: 73
-        height: 138
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ee38e1330cd432a44a9dde1484e5fc3d
-      internalID: 365158522
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tile-animacie-unfinished_3
-      rect:
-        serializedVersion: 2
-        x: 503
-        y: 863
+        x: 337
+        y: 908
         width: 74
-        height: 138
+        height: 141
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -191,18 +169,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d09e1fd4255281044868bc2f3561d7ca
-      internalID: -43265748
+      spriteID: 2687b65821c81ba4f8e650de6bcbb8ab
+      internalID: 1980207789
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tile-animacie-unfinished_4
+      name: idle_3
       rect:
         serializedVersion: 2
-        x: 647
-        y: 863
+        x: 481
+        y: 908
+        width: 74
+        height: 139
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72ced692ea66a6e4f8998dbe09b07477
+      internalID: -413219114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle_4
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 907
         width: 73
         height: 138
       alignment: 1
@@ -213,52 +213,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66ff3e9bf7dc9f748927a11308da74d8
-      internalID: 970656577
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tile-animacie-unfinished_5
-      rect:
-        serializedVersion: 2
-        x: 792
-        y: 863
-        width: 73
-        height: 138
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6a0f6ebbb36d9f0478d8eb50c8ce9ce0
-      internalID: -1097568046
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tile-animacie-unfinished_6
-      rect:
-        serializedVersion: 2
-        x: 936
-        y: 864
-        width: 73
-        height: 137
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9206ed63e36921b418b38956ab6cd8d9
-      internalID: -1109669780
+      spriteID: 8c66555d4de9764459505a954ae4e6d8
+      internalID: -1960940127
       vertices: []
       indices: 
       edges: []
@@ -267,7 +223,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 736f23e1914798a43af28e0ebf8a8845
+    spriteID: 54a28e3d95ddeb44d99c468579115694
     internalID: 0
     vertices: []
     indices: 
@@ -279,13 +235,11 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":5.0,"y":1.0},"gridSpriteSize":{"x":384.0,"y":1080.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":1.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":1,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      tile-animacie-unfinished_0: 475827678
-      tile-animacie-unfinished_1: -1265748112
-      tile-animacie-unfinished_2: 365158522
-      tile-animacie-unfinished_3: -43265748
-      tile-animacie-unfinished_4: 970656577
-      tile-animacie-unfinished_5: -1097568046
-      tile-animacie-unfinished_6: -1109669780
+      idle_0: 2031597756
+      idle_1: 79399829
+      idle_2: 1980207789
+      idle_3: -413219114
+      idle_4: -1960940127
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

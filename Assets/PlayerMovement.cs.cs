@@ -5,35 +5,37 @@ using System.Collections.Generic;
 public class PlayerMovement : MonoBehaviour
 {
     private float horizontal;
-    private float speed = 8f;
-    private float jumpingPower = 16f;
+    [SerializeField] private float speed = 12f;
+    [SerializeField] private float jumpingPower = 16f;
     private bool isFacingRight = true;
-
-    private Collider2D platformCollider;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private Animator _animator;
+    [SerializeField] private Animator anim; // Používame len jeden animator
 
     void Update()
     {
+        // 1. Získanie vstupu
         horizontal = Input.GetAxisRaw("Horizontal");
 
-            if (horizontal != 0)
-             {
-                 _animator.SetBool("isRunning", true);
-             }
-             else
-             {
-                 _animator.SetBool("isRunning", false);
-             }
+        // 2. Animácia behu (funguje pre klávesy aj gamepad)
+        if (horizontal != 0)
+        {
+            anim.SetBool("isRunning", true);
+        }
+        else
+        {
+            anim.SetBool("isRunning", false);
+        }
 
+        // 3. Logika skoku (opravená a vyèistená)
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
         }
 
+        // Variabilný skok (ak pustíš medzerník skôr, skoèíš menej)
         if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 0f)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
@@ -44,23 +46,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (DialogueManager.GetInstance().dialogueIsPlaying)
-        { 
-            return;
-        
-        }
-
-
+        // Plynulý horizontálny pohyb
         rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
     }
 
     private bool IsGrounded()
     {
+        // Kontrola, èi stojíme na zemi
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 
     private void Flip()
     {
+        // Otáèanie postavy (sprite mirroring)
         if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
         {
             isFacingRight = !isFacingRight;
