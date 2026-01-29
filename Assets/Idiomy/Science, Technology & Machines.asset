@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6153d1b187212c94a9ca86e11a66a04d, type: 3}
+  m_Name: Science, Technology & Machines
+  m_EditorClassIdentifier: Assembly-CSharp::LevelData
+  nazovTemy: Science, Technology & Machines
+  stage1_Ink: {fileID: 4900000, guid: a2294f4d93369184bb7d55c21756f4fb, type: 3}
+  stage2_Ink: {fileID: 4900000, guid: 82622d4b8d7c0ee45934b465bfafc831, type: 3}
+  stage3_Ink: {fileID: 4900000, guid: f42ce60c99c48794baa487d7352f19e6, type: 3}
+  stage4_Ink: {fileID: 4900000, guid: ed407b637ec404e48a0e8c737943d3df, type: 3}
+  stage5_Ink: {fileID: 4900000, guid: 584af83ea649bde498255b373ab47e92, type: 3}
+  stage6_Ink: {fileID: 4900000, guid: 4dcccffb80049e34a8124a06de5ba353, type: 3}
+  stage7_Ink: {fileID: 4900000, guid: bc6162cda1192a6408b32192934ecb3c, type: 3}
+  stage8_Ink: {fileID: 4900000, guid: 043a558cd2f38e544ba4646ead977fec, type: 3}
+  stage9_Ink: {fileID: 4900000, guid: 2bf7a6b08e0c25845ad8fe6a2147a463, type: 3}

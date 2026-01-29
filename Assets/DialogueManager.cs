@@ -10,6 +10,10 @@ public class DialogueManager : MonoBehaviour
 {
     private static DialogueManager instance;
 
+    [Header("Dialogue Sounds")]
+    [SerializeField] private AudioSource correctSoundSource;
+    [SerializeField] private AudioSource wrongSoundSource;
+
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
@@ -25,13 +29,13 @@ public class DialogueManager : MonoBehaviour
 
     public bool dialogueIsPlaying { get; private set; }
 
-    private int currentChoiceIndex = 0;
+    [Header("Level Progress")]
+    public bool canGoToNextLevel = false;
 
+    private int currentChoiceIndex = 0;
     private bool canMakeChoice = true;
     private bool canMoveChoice = true;
-
-    private bool inputReleased = false; // <<< DOPLNENÉ
-
+    private bool inputReleased = false;
 
     private void Awake()
     {
@@ -42,16 +46,12 @@ public class DialogueManager : MonoBehaviour
         instance = this;
     }
 
-    public static DialogueManager GetInstance()
-    {
-        return instance;
-    }
+    public static DialogueManager GetInstance() { return instance; }
 
     private void Start()
     {
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
-
         choicesText = new TextMeshProUGUI[choices.Length];
         int index = 0;
 
@@ -66,9 +66,6 @@ public class DialogueManager : MonoBehaviour
     {
         if (!dialogueIsPlaying) return;
 
-        // ===============================================
-        // BLOKOVANIE INPUTU, KÝM HRÁČ NEPUSTÍ E/ENTER
-        // ===============================================
         if (!inputReleased)
         {
             if (!Input.GetKey(KeyCode.E) && !Input.GetKey(KeyCode.Return))
@@ -76,10 +73,7 @@ public class DialogueManager : MonoBehaviour
             else
                 return;
         }
-        // ===============================================
 
-
-        // === 1) Continue story (len ak nie sú možnosti)
         if (canContinueToNextLine &&
             (currentChoices == null || currentChoices.Count == 0) &&
             Input.GetKeyDown(KeyCode.E))
@@ -88,22 +82,20 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        // === 2) Pohyb v menu
         if (currentChoices != null && currentChoices.Count > 0)
         {
-            if (Input.GetKeyDown(KeyCode.DownArrow) && canMoveChoice)
+            if (Input.GetKeyDown(KeyCode.RightArrow) && canMoveChoice)
             {
                 StartCoroutine(ChoiceMoveCooldown());
                 ChangeChoice(1);
             }
 
-            if (Input.GetKeyDown(KeyCode.UpArrow) && canMoveChoice)
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && canMoveChoice)
             {
                 StartCoroutine(ChoiceMoveCooldown());
                 ChangeChoice(-1);
             }
 
-            // === 3) Výber možnosti
             if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.E)) && canMakeChoice)
             {
                 StartCoroutine(ChoiceSelectCooldown());
@@ -112,31 +104,75 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-
-    // === COOLDOWNY ===
-
-    private IEnumerator ChoiceMoveCooldown()
+    private void HandleTags(List<string> currentTags)
     {
-        canMoveChoice = false;
-        yield return new WaitForSeconds(0.2f);
-        canMoveChoice = true;
+        foreach (string tag in currentTags)
+        {
+            string cleanTag = tag.Trim().ToUpper();
+
+            if (cleanTag == "CORRECT_CHOICE")
+            {
+                canGoToNextLevel = true;
+                Debug.Log("Tag detegovaný: CORRECT_CHOICE. Level odomknutý.");
+
+                if (correctSoundSource != null)
+                {
+                    correctSoundSource.Play();
+                }
+            }
+            else if (cleanTag == "WRONG_CHOICE")
+            {
+                canGoToNextLevel = false;
+                Debug.Log("Tag detegovaný: WRONG_CHOICE. Level zamknutý.");
+
+                if (wrongSoundSource != null)
+                {
+                    wrongSoundSource.Play();
+                }
+            }
+        }
     }
 
-    private IEnumerator ChoiceSelectCooldown()
+    private void ContinueStory()
     {
-        canMakeChoice = false;
-        yield return new WaitForSeconds(0.2f);
-        canMakeChoice = true;
+        if (currentStory.canContinue)
+        {
+            dialogueText.text = currentStory.Continue();
+            HandleTags(currentStory.currentTags);
+            DisplayChoices();
+        }
+        else
+        {
+            StartCoroutine(ExitDialogueMode());
+        }
     }
 
-
-    // === UI ============
+    private IEnumerator ChoiceMoveCooldown() { canMoveChoice = false; yield return new WaitForSeconds(0.2f); canMoveChoice = true; }
+    private IEnumerator ChoiceSelectCooldown() { canMakeChoice = false; yield return new WaitForSeconds(0.2f); canMakeChoice = true; }
 
     void UpdateChoiceUI()
     {
         for (int i = 0; i < choices.Length; i++)
         {
-            choicesText[i].color = (i == currentChoiceIndex) ? Color.yellow : Color.white;
+            // 1. Text zostane vždy biely (aby sa nebil so žltou)
+            choicesText[i].color = Color.white;
+
+            // 2. Získame Image komponent z tlačidla
+            UnityEngine.UI.Image btnImage = choices[i].GetComponent<UnityEngine.UI.Image>();
+
+            if (btnImage != null)
+            {
+                if (i == currentChoiceIndex)
+                {
+                    // Vybraté: Čierna farba s Alphou 200 (cca 0.78f)
+                    btnImage.color = new Color(0f, 0f, 0f, 0.78f);
+                }
+                else
+                {
+                    // Nevybraté: Úplne priehľadné
+                    btnImage.color = new Color(0f, 0f, 0f, 0f);
+                }
+            }
         }
     }
 
@@ -154,64 +190,37 @@ public class DialogueManager : MonoBehaviour
         ContinueStory();
     }
 
-
-    // === MODE =========
-
     public void EnterDialogueMode(TextAsset inkJSON)
     {
         currentStory = new Story(inkJSON.text);
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
+        inputReleased = false;
 
-        inputReleased = false; // <<< BLOKUJ INPUT PO SPUSTENÍ
+        // --- TENTO RIADOK SME PRIDALI ---
+        // Pri každom novom dialógu zresetujeme stav, aby hráč nemohol prejsť level bez odpovede
+        canGoToNextLevel = false;
 
         ContinueStory();
         StartCoroutine(EnableNextLine());
     }
 
-    private IEnumerator EnableNextLine()
-    {
-        yield return new WaitForSeconds(0.5f);
-        canContinueToNextLine = true;
-    }
+    private IEnumerator EnableNextLine() { yield return new WaitForSeconds(0.5f); canContinueToNextLine = true; }
 
     private IEnumerator ExitDialogueMode()
     {
         yield return new WaitForSeconds(0.2f);
-
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         canContinueToNextLine = false;
         dialogueText.text = "";
-
         currentChoices = null;
     }
-
-
-    private void ContinueStory()
-    {
-        if (currentStory.canContinue)
-        {
-            dialogueText.text = currentStory.Continue();
-            DisplayChoices();
-        }
-        else
-        {
-            StartCoroutine(ExitDialogueMode());
-        }
-    }
-
-
-    // === CHOICES =========
 
     private void DisplayChoices()
     {
         currentChoices = currentStory.currentChoices;
-
-        if (currentChoices.Count > choices.Length)
-        {
-            Debug.LogError("Je viac možností ako máme buttonov!");
-        }
+        if (currentChoices.Count > choices.Length) Debug.LogError("Je viac možností ako máme buttonov!");
 
         int index = 0;
         foreach (Choice choice in currentChoices)
@@ -220,12 +229,7 @@ public class DialogueManager : MonoBehaviour
             choicesText[index].text = choice.text;
             index++;
         }
-
-        for (int i = index; i < choices.Length; i++)
-        {
-            choices[i].SetActive(false);
-        }
-
+        for (int i = index; i < choices.Length; i++) choices[i].SetActive(false);
         currentChoiceIndex = 0;
         UpdateChoiceUI();
         StartCoroutine(SelectFirstChoice());

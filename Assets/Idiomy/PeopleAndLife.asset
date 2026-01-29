@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6153d1b187212c94a9ca86e11a66a04d, type: 3}
+  m_Name: PeopleAndLife
+  m_EditorClassIdentifier: Assembly-CSharp::LevelData
+  nazovTemy: People & Life
+  stage1_Ink: {fileID: 4900000, guid: fa6c92955c0fc87429fd7eb077e7fc4e, type: 3}
+  stage2_Ink: {fileID: 4900000, guid: 55d88be234aee8a48960020f77388582, type: 3}
+  stage3_Ink: {fileID: 4900000, guid: e15b56291b85b9d4badd3b218c889b90, type: 3}
+  stage4_Ink: {fileID: 4900000, guid: e81f8be9e3a102f4fa13fa7b8ca2991f, type: 3}
+  stage5_Ink: {fileID: 4900000, guid: 29f3b66b2f1a87549952b703101b1cab, type: 3}
+  stage6_Ink: {fileID: 4900000, guid: e683da40787fb4f44b874a47262e776b, type: 3}
+  stage7_Ink: {fileID: 4900000, guid: 1f4635f31206b5e4fa881c9bb7828a60, type: 3}
+  stage8_Ink: {fileID: 4900000, guid: b0f3eb80ae93b3f4f943b24060701bf5, type: 3}
+  stage9_Ink: {fileID: 4900000, guid: 87f050ce213d7534fab4a3d8d0eefccb, type: 3}

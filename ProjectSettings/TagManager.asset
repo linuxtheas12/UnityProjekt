@@ -56,11 +56,11 @@ TagManager:
   - name: 5Road
     uniqueID: 3952266241
     locked: 0
-  - name: Player
-    uniqueID: 3421155805
-    locked: 0
   - name: Companion
     uniqueID: 2078958845
+    locked: 0
+  - name: Player
+    uniqueID: 3421155805
     locked: 0
   m_RenderingLayers:
   - Default

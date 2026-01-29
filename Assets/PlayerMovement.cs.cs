@@ -12,30 +12,53 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private Animator anim; // Používame len jeden animator
+    [SerializeField] private Animator anim;
+
+    [Header("Zvuky")]
+    [SerializeField] private AudioSource footstepSource; // Sem vlož AudioSource s loopnutým zvukom chôdze
 
     void Update()
     {
-        // 1. Získanie vstupu
+
+        if (DialogueManager.GetInstance().dialogueIsPlaying)
+        {
+            StopMovement();
+            return;
+        }
+
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        // 2. Animácia behu (funguje pre klávesy aj gamepad)
-        if (horizontal != 0)
+        // 1. Animácia a Zvuk chôdze
+        if (horizontal != 0 && IsGrounded())
         {
             anim.SetBool("isRunning", true);
+
+            // Spusti zvuk, ak ešte nehrá
+            if (!footstepSource.isPlaying)
+            {
+                footstepSource.Play();
+            }
         }
         else
         {
             anim.SetBool("isRunning", false);
+
+            // Zastav zvuk, ak hráè stojí alebo je vo vzduchu
+            if (footstepSource.isPlaying)
+            {
+                footstepSource.Stop();
+            }
         }
 
-        // 3. Logika skoku (opravená a vyèistená)
+        // 2. Logika skoku
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
+
+            // Tip: Tu môžeš prida samostatný jednorazový zvuk skoku
+            // footstepSource.Stop(); // Volite¾né: okamžite utíš kroky pri výskoku
         }
 
-        // Variabilný skok (ak pustíš medzerník skôr, skoèíš menej)
         if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 0f)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
@@ -46,19 +69,29 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Plynulý horizontálny pohyb
+        if (DialogueManager.GetInstance().dialogueIsPlaying)
+        {
+            return;
+        }
+
         rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
+    }
+
+    private void StopMovement()
+    {
+        horizontal = 0;
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        anim.SetBool("isRunning", false);
+        if (footstepSource.isPlaying) footstepSource.Stop();
     }
 
     private bool IsGrounded()
     {
-        // Kontrola, èi stojíme na zemi
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 
     private void Flip()
     {
-        // Otáèanie postavy (sprite mirroring)
         if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
         {
             isFacingRight = !isFacingRight;
