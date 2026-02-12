@@ -39,10 +39,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
-        {
-            Debug.LogWarning("Found more than one Dialogue Manager in the scene");
-        }
+        if (instance != null) Debug.LogWarning("Found more than one Dialogue Manager");
         instance = this;
     }
 
@@ -53,12 +50,10 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         choicesText = new TextMeshProUGUI[choices.Length];
-        int index = 0;
 
-        foreach (GameObject choice in choices)
+        for (int i = 0; i < choices.Length; i++)
         {
-            choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
-            index++;
+            choicesText[i] = choices[i].GetComponentInChildren<TextMeshProUGUI>();
         }
     }
 
@@ -66,6 +61,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (!dialogueIsPlaying) return;
 
+        // Ošetrenie vstupu, aby dialóg nepreskočil hneď pri zapnutí
         if (!inputReleased)
         {
             if (!Input.GetKey(KeyCode.E) && !Input.GetKey(KeyCode.Return))
@@ -74,14 +70,14 @@ public class DialogueManager : MonoBehaviour
                 return;
         }
 
-        if (canContinueToNextLine &&
-            (currentChoices == null || currentChoices.Count == 0) &&
-            Input.GetKeyDown(KeyCode.E))
+        // Pokračovanie v texte (ak nie sú na výber možnosti)
+        if (canContinueToNextLine && (currentChoices == null || currentChoices.Count == 0) && Input.GetKeyDown(KeyCode.E))
         {
             ContinueStory();
             return;
         }
 
+        // Ovládanie výberu možností
         if (currentChoices != null && currentChoices.Count > 0)
         {
             if (Input.GetKeyDown(KeyCode.RightArrow) && canMoveChoice)
@@ -89,13 +85,11 @@ public class DialogueManager : MonoBehaviour
                 StartCoroutine(ChoiceMoveCooldown());
                 ChangeChoice(1);
             }
-
             if (Input.GetKeyDown(KeyCode.LeftArrow) && canMoveChoice)
             {
                 StartCoroutine(ChoiceMoveCooldown());
                 ChangeChoice(-1);
             }
-
             if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.E)) && canMakeChoice)
             {
                 StartCoroutine(ChoiceSelectCooldown());
@@ -109,26 +103,15 @@ public class DialogueManager : MonoBehaviour
         foreach (string tag in currentTags)
         {
             string cleanTag = tag.Trim().ToUpper();
-
             if (cleanTag == "CORRECT_CHOICE")
             {
-                canGoToNextLevel = true;
-                Debug.Log("Tag detegovaný: CORRECT_CHOICE. Level odomknutý.");
-
-                if (correctSoundSource != null)
-                {
-                    correctSoundSource.Play();
-                }
+                canGoToNextLevel = true; // Odomkne dvere (LevelExit.cs)
+                if (correctSoundSource != null) correctSoundSource.Play();
             }
             else if (cleanTag == "WRONG_CHOICE")
             {
                 canGoToNextLevel = false;
-                Debug.Log("Tag detegovaný: WRONG_CHOICE. Level zamknutý.");
-
-                if (wrongSoundSource != null)
-                {
-                    wrongSoundSource.Play();
-                }
+                if (wrongSoundSource != null) wrongSoundSource.Play();
             }
         }
     }
@@ -154,24 +137,11 @@ public class DialogueManager : MonoBehaviour
     {
         for (int i = 0; i < choices.Length; i++)
         {
-            // 1. Text zostane vždy biely (aby sa nebil so žltou)
             choicesText[i].color = Color.white;
-
-            // 2. Získame Image komponent z tlačidla
             UnityEngine.UI.Image btnImage = choices[i].GetComponent<UnityEngine.UI.Image>();
-
             if (btnImage != null)
             {
-                if (i == currentChoiceIndex)
-                {
-                    // Vybraté: Čierna farba s Alphou 200 (cca 0.78f)
-                    btnImage.color = new Color(0f, 0f, 0f, 0.78f);
-                }
-                else
-                {
-                    // Nevybraté: Úplne priehľadné
-                    btnImage.color = new Color(0f, 0f, 0f, 0f);
-                }
+                btnImage.color = (i == currentChoiceIndex) ? new Color(0f, 0f, 0f, 0.78f) : new Color(0f, 0f, 0f, 0f);
             }
         }
     }
@@ -196,10 +166,7 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
         inputReleased = false;
-
-        // --- TENTO RIADOK SME PRIDALI ---
-        // Pri každom novom dialógu zresetujeme stav, aby hráč nemohol prejsť level bez odpovede
-        canGoToNextLevel = false;
+        canGoToNextLevel = false; // Reset pri každom novom dialógu
 
         ContinueStory();
         StartCoroutine(EnableNextLine());
@@ -215,12 +182,13 @@ public class DialogueManager : MonoBehaviour
         canContinueToNextLine = false;
         dialogueText.text = "";
         currentChoices = null;
+        // TU SME ODSTRÁNILI AUTOMATICKÝ PRECHOD - teraz čakáme na trigger hráča v LevelExit.cs
     }
 
     private void DisplayChoices()
     {
         currentChoices = currentStory.currentChoices;
-        if (currentChoices.Count > choices.Length) Debug.LogError("Je viac možností ako máme buttonov!");
+        if (currentChoices.Count > choices.Length) Debug.LogError("Príliš veľa možností v Inku!");
 
         int index = 0;
         foreach (Choice choice in currentChoices)
@@ -230,6 +198,7 @@ public class DialogueManager : MonoBehaviour
             index++;
         }
         for (int i = index; i < choices.Length; i++) choices[i].SetActive(false);
+
         currentChoiceIndex = 0;
         UpdateChoiceUI();
         StartCoroutine(SelectFirstChoice());

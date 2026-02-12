@@ -1,17 +1,17 @@
-using System.Collections; // PotrebnÈ pre IEnumerator (delay)
+using System.Collections;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelExit : MonoBehaviour
 {
     [Header("Nastavenia")]
-    [SerializeField] private string nextLevelName;
-    [SerializeField] private float delayBeforeExit = 0.5f; // Pol sekundy delay
+    [SerializeField] private float delayBeforeSceneLoad = 0.5f; // »as na dohranie zvuku a clony
 
     [Header("Zvuk")]
-    [SerializeField] private AudioSource exitSound; // Sem priradÌö AudioSource
+    [SerializeField] private AudioSource exitSound;
 
-    private bool isExiting = false; // Ochrana, aby sa to nespustilo viackr·t naraz
+    private bool isExiting = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -21,13 +21,11 @@ public class LevelExit : MonoBehaviour
         {
             if (DialogueManager.GetInstance().canGoToNextLevel)
             {
-                GameSession.aktualnyStage++; // Zv˝öime stage
                 StartCoroutine(ExecuteExit());
             }
             else
             {
-                Debug.Log("NPC ùa eöte nepustilo.");
-                // Ak chceö zvuk aj pri zamknut˝ch dver·ch, mÙûeö ho pridaù sem
+                Debug.Log("Eöte si neodpovedal spr·vne!");
             }
         }
     }
@@ -35,18 +33,40 @@ public class LevelExit : MonoBehaviour
     private IEnumerator ExecuteExit()
     {
         isExiting = true;
-        Debug.Log("PrÌstup povolen˝. Hr·m zvuk...");
 
-        // 1. Spusti zvuk (ak je priraden˝)
+        // 1. SpustÌme zvuk hneÔ
         if (exitSound != null)
         {
             exitSound.Play();
         }
 
-        // 2. PoËkaj definovan˝ Ëas
-        yield return new WaitForSeconds(delayBeforeExit);
+        // 2. VypoËÌtame Ôalöiu scÈnu
+        GameSession.aktualnyStage++;
+        string nextScene = CalculateNextSceneName(GameSession.aktualnyStage);
 
-        // 3. NaËÌtaj ÔalöÌ level
-        SceneManager.LoadScene(nextLevelName);
+        // 3. SpustÌme Ëiernu clonu (ak existuje)
+        // Ak tvoj SceneTransition.Instance.ChangeScene uû v sebe m· "yield return LoadSceneAsync", 
+        // tak v tomto skripte uû nemusÌö Ëakaù.
+        // Ale ak chceö maù istotu, ûe zvuk dohr·:
+
+        if (SceneTransition.Instance != null)
+        {
+            // SpustÌme vizu·lny prechod
+            SceneTransition.Instance.ChangeScene(nextScene);
+        }
+        else
+        {
+            // Ak nem·ö transition skript, poËk·me na zvuk a potom switch
+            yield return new WaitForSeconds(delayBeforeSceneLoad);
+            SceneManager.LoadScene(nextScene);
+        }
+    }
+
+    private string CalculateNextSceneName(int stage)
+    {
+        if (stage <= 3) return "LES_" + stage;
+        else if (stage <= 6) return "PUST_" + (stage - 3);
+        else if (stage <= 9) return "MESTO_" + (stage - 6);
+        else return "Menu";
     }
 }
