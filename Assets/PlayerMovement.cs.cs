@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator anim;
 
     [Header("Zvuky")]
-    [SerializeField] private AudioSource footstepSource; // Sem vlož AudioSource s loopnutým zvukom chôdze
+    [SerializeField] private AudioSource footstepSource; // Sem vloï¿½ AudioSource s loopnutï¿½m zvukom chï¿½dze
 
     void Update()
     {
@@ -28,12 +28,12 @@ public class PlayerMovement : MonoBehaviour
 
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        // 1. Animácia a Zvuk chôdze
+        // 1. Animï¿½cia a Zvuk chï¿½dze
         if (horizontal != 0 && IsGrounded())
         {
             anim.SetBool("isRunning", true);
 
-            // Spusti zvuk, ak ešte nehrá
+            // Spusti zvuk, ak eï¿½te nehrï¿½
             if (!footstepSource.isPlaying)
             {
                 footstepSource.Play();
@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetBool("isRunning", false);
 
-            // Zastav zvuk, ak hráè stojí alebo je vo vzduchu
+            // Zastav zvuk, ak hrï¿½ï¿½ stojï¿½ alebo je vo vzduchu
             if (footstepSource.isPlaying)
             {
                 footstepSource.Stop();
@@ -55,8 +55,8 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
 
-            // Tip: Tu môžeš prida samostatný jednorazový zvuk skoku
-            // footstepSource.Stop(); // Volite¾né: okamžite utíš kroky pri výskoku
+            // Tip: Tu mï¿½ï¿½eï¿½ pridaï¿½ samostatnï¿½ jednorazovï¿½ zvuk skoku
+            // footstepSource.Stop(); // Voliteï¿½nï¿½: okamï¿½ite utï¿½ kroky pri vï¿½skoku
         }
 
         if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 0f)
@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        return Physics2D.OverlapCircle(groundCheck.position, 0.8f, groundLayer);
     }
 
     private void Flip()
