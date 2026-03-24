@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 
-        if (DialogueManager.GetInstance().dialogueIsPlaying)
+        if (DialogueManager.GetInstance() != null && DialogueManager.GetInstance().dialogueIsPlaying)
         {
             StopMovement();
             return;
