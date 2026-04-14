@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
@@ -6,9 +5,12 @@ public class DialogueTrigger : MonoBehaviour
     [Header("Visual Cue")]
     [SerializeField] private GameObject visualCue;
 
-    [Header("Ink JSON (Fallback)")]
-    [Tooltip("Tento s˙bor sa spustÌ, ak by n·hodou nebola vybrat· ûiadna tÈma v menu.")]
-    [SerializeField] private TextAsset inkJSON;
+    [Header("Fallback Theme (Ak nie je vybran√° z menu)")]
+    [SerializeField] private string fallbackTheme = "people and life";
+
+    [Header("NPC Display Settings")]
+    [SerializeField] private string npcNameForUI;
+
 
     private bool playerInRange;
 
@@ -20,12 +22,10 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Update()
     {
-        // Ak je hr·Ë v dosahu a pr·ve neprebieha in˝ dialÛg
         if (playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
         {
             visualCue.SetActive(true);
 
-            // KeÔ hr·Ë stlaËÌ tlaËidlo pre interakciu (napr. E)
             if (InputManager.GetInstance().GetInteractPressed())
             {
                 SpustiVybratyDialog();
@@ -39,45 +39,31 @@ public class DialogueTrigger : MonoBehaviour
 
     private void SpustiVybratyDialog()
     {
-        TextAsset suborNaSpustenie = null;
+        string temaNaSpustenie = fallbackTheme;
 
         if (GameSession.vybranaTema != null)
         {
-            // Tu priradÌme s˙bor podæa aktu·lneho ËÌsla stageu (1-9)
-            switch (GameSession.aktualnyStage)
-            {
-                case 1: suborNaSpustenie = GameSession.vybranaTema.stage1_Ink; break;
-                case 2: suborNaSpustenie = GameSession.vybranaTema.stage2_Ink; break;
-                case 3: suborNaSpustenie = GameSession.vybranaTema.stage3_Ink; break;
-                case 4: suborNaSpustenie = GameSession.vybranaTema.stage4_Ink; break;
-                case 5: suborNaSpustenie = GameSession.vybranaTema.stage5_Ink; break;
-                case 6: suborNaSpustenie = GameSession.vybranaTema.stage6_Ink; break;
-                case 7: suborNaSpustenie = GameSession.vybranaTema.stage7_Ink; break;
-                case 8: suborNaSpustenie = GameSession.vybranaTema.stage8_Ink; break;
-                case 9: suborNaSpustenie = GameSession.vybranaTema.stage9_Ink; break;
-                default: suborNaSpustenie = GameSession.vybranaTema.stage1_Ink; break;
-            }
+            // OPRAVA: Premenn√° sa vol√° nazovTemy, nie temaID
+            temaNaSpustenie = GameSession.vybranaTema.nazovTemy;
         }
 
-        // Ak by n·hodou v tÈme nebol s˙bor, pouûi ten, Ëo je hoden˝ priamo na strome (fallback)
-        if (suborNaSpustenie == null)
-        {
-            suborNaSpustenie = inkJSON;
-        }
+        // Z√≠skanie n√°hodnej ot√°zky z JSONu podƒæa t√©my
+        QuestionData vybranaOtazka = QuestionManager.GetInstance().GetRandomQuestionByTheme(temaNaSpustenie);
 
-        if (suborNaSpustenie != null)
+        if (vybranaOtazka != null)
         {
-            DialogueManager.GetInstance().EnterDialogueMode(suborNaSpustenie);
+            // Spustenie dial√≥gu s menom NPC, ktor√© si nastav√≠≈° v In≈°pektore
+            DialogueManager.GetInstance().EnterDialogueMode(vybranaOtazka, npcNameForUI);
         }
         else
         {
-            Debug.LogError("éiadny Ink s˙bor nebol n·jden˝!");
+            Debug.LogError($"≈Ωiadna ot√°zka pre t√©mu '{temaNaSpustenie}' v JSON-e neexistuje! Skontroluj, ƒçi sa n√°zov v LevelData zhoduje s n√°zvom v JSON s√∫bore.");
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Player")
+        if (collider.gameObject.CompareTag("Player"))
         {
             playerInRange = true;
         }
@@ -85,7 +71,7 @@ public class DialogueTrigger : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Player")
+        if (collider.gameObject.CompareTag("Player"))
         {
             playerInRange = false;
         }

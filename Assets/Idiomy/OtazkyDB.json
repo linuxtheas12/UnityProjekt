@@ -1,0 +1,404 @@
+{
+  "questions": [
+    {
+      "theme": "People & Life",
+      "npcName": "Mythical Wise Tree",
+      "evaluatorName": "Barbas",
+      "questionText": "What do we call a person who prefers to be alone and act independently?",
+      "options": [ "A social butterfly", "A lone wolf", "A dark horse" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Awoo! The lone wolf is correct!",
+      "wrongResponseHint": "Not quite, think about a solitary animal."
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Savage Camel",
+      "evaluatorName": "Barbas",
+      "questionText": "Which idiom means to make people feel more relaxed in a social situation?",
+      "options": [ "To break the ice", "To burn bridges", "To spill the beans" ],
+      "correctAnswerIndex": 0,
+      "correctResponse": "Brrr, it's getting warmer in here! Correct!",
+      "wrongResponseHint": "No, think about frozen water."
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Old Oak",
+      "evaluatorName": "Barbas",
+      "questionText": "If someone is a 'couch potato', what are they doing?",
+      "options": [ "Gardening", "Exercising", "Watching too much TV" ],
+      "correctAnswerIndex": 2,
+      "correctResponse": "Exactly! Put down the remote!",
+      "wrongResponseHint": "It's a very lazy activity."
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Desert Spirit",
+      "evaluatorName": "Barbas",
+      "questionText": "What does it mean to 'be in the same boat'?",
+      "options": [ "To go sailing", "To be in the same unpleasant situation", "To share a prize" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "We are all in this together! Correct.",
+      "wrongResponseHint": "It's not about actual boats, but shared problems."
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Elder Willow",
+      "evaluatorName": "Barbas",
+      "questionText": "If a task is a 'piece of cake', it is...",
+      "options": [ "Very easy", "Delicious", "Hard to finish" ],
+      "correctAnswerIndex": 0,
+      "correctResponse": "Sweet victory! It was easy.",
+      "wrongResponseHint": "Think about how easily you can eat a slice of cake."
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Sand Nomad",
+      "evaluatorName": "Barbas",
+      "questionText": "What does 'break a leg' mean in the theater?",
+      "options": [ "Go to the hospital", "Good luck", "Sing louder" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Great performance! It means good luck.",
+      "wrongResponseHint": "It's a superstitious way of wishing someone well."
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Ancient Root",
+      "evaluatorName": "Barbas",
+      "questionText": "Someone who is 'under the weather' is feeling...",
+      "options": [ "Happy", "Sick", "Rich" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Indeed. I hope they get better soon.",
+      "wrongResponseHint": "Think about how rain makes people feel."
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Cactus Joe",
+      "evaluatorName": "Barbas",
+      "questionText": "What does 'cost an arm and a leg' mean?",
+      "options": [ "Very cheap", "Very expensive", "Dangerous" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "That's a high price to pay! Correct.",
+      "wrongResponseHint": "Losing limbs is a high cost, isn't it?"
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Wise Shrub",
+      "evaluatorName": "Barbas",
+      "questionText": "When you 'hit the sack', you are going to...",
+      "options": [ "Fight someone", "Go to sleep", "Eat lunch" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Goodnight! You're off to bed.",
+      "wrongResponseHint": "The 'sack' is an old term for a bed."
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Mirage Fox",
+      "evaluatorName": "Barbas",
+      "questionText": "What does it mean to 'let the cat out of the bag'?",
+      "options": [ "To free a pet", "To reveal a secret", "To buy groceries" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Oops! The secret is out now.",
+      "wrongResponseHint": "Think about a hidden secret escaping."
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Forest Guardian",
+      "evaluatorName": "Barbas",
+      "questionText": "If you are 'on cloud nine', you are...",
+      "options": [ "Flying", "Very happy", "Confused" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "What a wonderful feeling! Correct.",
+      "wrongResponseHint": "It's the highest level of happiness."
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Dusty Lizard",
+      "evaluatorName": "Barbas",
+      "questionText": "To 'bite off more than you can chew' means...",
+      "options": [ "To be greedy", "To take on a task that is too big", "To eat quickly" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Don't overwork yourself! Correct.",
+      "wrongResponseHint": "Think about having too much in your mouth to handle."
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Singing Leaf",
+      "evaluatorName": "Barbas",
+      "questionText": "What does 'once in a blue moon' mean?",
+      "options": [ "Every night", "Very rarely", "During an eclipse" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Hardly ever happens! You got it.",
+      "wrongResponseHint": "How often do you actually see a blue moon?"
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Sun-baked Rock",
+      "evaluatorName": "Barbas",
+      "questionText": "If you 'bark up the wrong tree', you are...",
+      "options": [ "Being a dog", "Looking in the wrong place", "Singing badly" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "You're heading the wrong way! Correct.",
+      "wrongResponseHint": "The cat is actually in a different tree."
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Twisted Vine",
+      "evaluatorName": "Barbas",
+      "questionText": "To 'cry over spilt milk' means to...",
+      "options": [ "Be hungry", "Worry about things that cannot be fixed", "Clean the floor" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "No use crying, it's already gone! Correct.",
+      "wrongResponseHint": "The mess is already made, why be sad?"
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Scorpion King",
+      "evaluatorName": "Barbas",
+      "questionText": "If you 'kill two birds with one stone', you...",
+      "options": [ "Are a hunter", "Solve two problems at once", "Are cruel" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "How efficient of you! Correct.",
+      "wrongResponseHint": "One action, two results."
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Jungle Flower",
+      "evaluatorName": "Barbas",
+      "questionText": "A 'smart cookie' is someone who is...",
+      "options": [ "Delicious", "Intelligent", "Small" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Just like you! You're very clever.",
+      "wrongResponseHint": "It's a compliment for the brain."
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Dune Beetle",
+      "evaluatorName": "Barbas",
+      "questionText": "What does 'spill the beans' mean?",
+      "options": [ "To cook dinner", "To tell a secret", "To make a mess" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "The secret is out! Correct.",
+      "wrongResponseHint": "Information is falling out like beans from a jar."
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Mossy Log",
+      "evaluatorName": "Barbas",
+      "questionText": "To 'pull someone's leg' means to...",
+      "options": [ "Trip them", "Joke with them", "Help them stand" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Just kidding! You're right.",
+      "wrongResponseHint": "It's a friendly form of teasing."
+    },
+    {
+      "theme": "People & Life",
+      "npcName": "Dry Thorn",
+      "evaluatorName": "Barbas",
+      "questionText": "If you are 'all ears', you are...",
+      "options": [ "A monster", "Listening closely", "In a cornfield" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "I'm listening! Correct answer.",
+      "wrongResponseHint": "Think about what ears are used for."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Cyber Fox",
+      "evaluatorName": "Barbas",
+      "questionText": "What is the primary function of a CPU in a computer?",
+      "options": [ "To store data", "To process instructions", "To display graphics" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Beep boop! The brain is working.",
+      "wrongResponseHint": "It's the Central Processing Unit."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Rusty Robot",
+      "evaluatorName": "Barbas",
+      "questionText": "Which unit is used to measure computer storage capacity?",
+      "options": [ "Volts", "Gigabytes", "Amperes" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Memory full! Gigabytes is correct.",
+      "wrongResponseHint": "Think about file sizes on your phone."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Hologram Man",
+      "evaluatorName": "Barbas",
+      "questionText": "What does 'WWW' stand for?",
+      "options": [ "World Wide Web", "World Wild West", "Web World Wide" ],
+      "correctAnswerIndex": 0,
+      "correctResponse": "Connecting... World Wide Web is right!",
+      "wrongResponseHint": "It's what you type before a website address."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Circuit Snail",
+      "evaluatorName": "Barbas",
+      "questionText": "What is the main purpose of a firewall?",
+      "options": [ "To cook food", "To block unauthorized access", "To speed up internet" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Safety first! Access denied to hackers.",
+      "wrongResponseHint": "It's a digital barrier for protection."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "LED Owl",
+      "evaluatorName": "Barbas",
+      "questionText": "Which company developed the Windows operating system?",
+      "options": [ "Apple", "Microsoft", "Google" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Blue screen avoided! It's Microsoft.",
+      "wrongResponseHint": "The company founded by Bill Gates."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Neon Jellyfish",
+      "evaluatorName": "Barbas",
+      "questionText": "In science, what is the chemical symbol for water?",
+      "options": [ "CO2", "H2O", "O2" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Refreshing! H2O is the one.",
+      "wrongResponseHint": "Two hydrogen atoms, one oxygen."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Drone Scout",
+      "evaluatorName": "Barbas",
+      "questionText": "What is the most common gas in Earth's atmosphere?",
+      "options": [ "Oxygen", "Nitrogen", "Carbon Dioxide" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Breathe deep! It's actually Nitrogen.",
+      "wrongResponseHint": "It makes up about 78% of our air."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Tesla Coil",
+      "evaluatorName": "Barbas",
+      "questionText": "Who is often credited with inventing the light bulb?",
+      "options": [ "Nikola Tesla", "Thomas Edison", "Albert Einstein" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Bright idea! Edison is the name.",
+      "wrongResponseHint": "He had thousands of attempts before succeeding."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Laser Crab",
+      "evaluatorName": "Barbas",
+      "questionText": "What is the center of an atom called?",
+      "options": [ "Electron", "Nucleus", "Proton" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Small but mighty! The nucleus.",
+      "wrongResponseHint": "It's the very core of the atom."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Solar panel Goat",
+      "evaluatorName": "Barbas",
+      "questionText": "Which planet is known as the 'Red Planet'?",
+      "options": [ "Venus", "Mars", "Jupiter" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Red rocks and dust! Mars it is.",
+      "wrongResponseHint": "The fourth planet from the Sun."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Data Bat",
+      "evaluatorName": "Barbas",
+      "questionText": "What does 'RAM' stand for in computing?",
+      "options": [ "Read Access Memory", "Random Access Memory", "Rapid Action Module" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Speedy! Random Access Memory is correct.",
+      "wrongResponseHint": "It's the short-term memory of a computer."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Fiber Optic Cat",
+      "evaluatorName": "Barbas",
+      "questionText": "Which device is used to connect your computer to the internet?",
+      "options": [ "Monitor", "Modem", "Keyboard" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Online! The modem does the work.",
+      "wrongResponseHint": "It modulates and demodulates signals."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Binary Bird",
+      "evaluatorName": "Barbas",
+      "questionText": "How many bits are in a single byte?",
+      "options": [ "4", "8", "16" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Exactly 8 bits in a byte!",
+      "wrongResponseHint": "It's a power of 2, between 5 and 10."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Silicon Snake",
+      "evaluatorName": "Barbas",
+      "questionText": "What is the hardest natural substance on Earth?",
+      "options": [ "Gold", "Diamond", "Iron" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Unbreakable! Diamond is the answer.",
+      "wrongResponseHint": "It's made of pressurized carbon."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Steam Engine Bear",
+      "evaluatorName": "Barbas",
+      "questionText": "What is the boiling point of water at sea level?",
+      "options": [ "90°C", "100°C", "120°C" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Hot! 100 degrees Celsius.",
+      "wrongResponseHint": "It's a nice round number in metric."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Atomic Ant",
+      "evaluatorName": "Barbas",
+      "questionText": "Which force keeps us on the ground?",
+      "options": [ "Magnetism", "Gravity", "Friction" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Stay grounded! It's gravity.",
+      "wrongResponseHint": "What goes up must come down."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Battery Bunny",
+      "evaluatorName": "Barbas",
+      "questionText": "What kind of energy is stored in a battery?",
+      "options": [ "Kinetic", "Chemical", "Solar" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Power up! Chemical energy is stored there.",
+      "wrongResponseHint": "It involves a reaction between materials inside."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Turbo Turtle",
+      "evaluatorName": "Barbas",
+      "questionText": "What is the fastest thing in the universe?",
+      "options": [ "Sound", "Light", "Electricity" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "Zoom! Nothing is faster than light.",
+      "wrongResponseHint": "300,000 kilometers per second!"
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Gravity Gorilla",
+      "evaluatorName": "Barbas",
+      "questionText": "Who developed the theory of relativity?",
+      "options": [ "Isaac Newton", "Albert Einstein", "Stephen Hawking" ],
+      "correctAnswerIndex": 1,
+      "correctResponse": "E=mc2! Einstein was a genius.",
+      "wrongResponseHint": "The man with the famous wild hair."
+    },
+    {
+      "theme": "Science, Technology & Machines",
+      "npcName": "Satellite Shark",
+      "evaluatorName": "Barbas",
+      "questionText": "What does GPS stand for?",
+      "options": [ "Global Positioning System", "General Placement Service", "Global Path Source" ],
+      "correctAnswerIndex": 0,
+      "correctResponse": "You are here! Global Positioning System.",
+      "wrongResponseHint": "It tells you exactly where you are on the globe."
+    }
+  ]
+}
