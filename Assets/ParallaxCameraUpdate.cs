@@ -1,35 +1,59 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class jakurwaneviem : MonoBehaviour
 {
     private float startPos, length;
+    private float startPosY; // Pridané pre vertikálny štart
     public GameObject cam;
     public float parallaxEffect;
+    private bool isTowerLevel;
 
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (cam == null)
+        {
+            cam = Camera.main != null ? Camera.main.gameObject : GameObject.FindGameObjectWithTag("MainCamera");
+        }
+
+        if (cam == null) return;
+
         startPos = transform.position.x;
-        length = GetComponent<SpriteRenderer>().bounds.size.x;
+        startPosY = transform.position.y; // Uložíme si pôvodnú výšku
+
+        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            length = renderer.bounds.size.x;
+        }
+
+        if (SceneManager.GetActiveScene().name == "tower")
+        {
+            isTowerLevel = true;
+        }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        float distance = cam.transform.position.x * parallaxEffect;
-        float movement = cam.transform.position.x * (1 - parallaxEffect);
+        if (cam == null) return;
 
-        transform.position = new Vector3(startPos + distance, transform.position.y, transform.position.z);
-
-        if (movement > startPos + length)
+        if (isTowerLevel)
         {
-            startPos += length;
+            // VERTIKÁLNY PARALLAX (pre Tower)
+            // Pozadie sa hýbe podľa Y pozície kamery
+            float distanceY = cam.transform.position.y * parallaxEffect;
+            transform.position = new Vector3(transform.position.x, startPosY + distanceY, transform.position.z);
         }
-        else if (movement < startPos - length)
+        else
         {
-            startPos -= length;
+            // HORIZONTÁLNY PARALLAX (klasický level)
+            float distance = cam.transform.position.x * parallaxEffect;
+            float movement = cam.transform.position.x * (1 - parallaxEffect);
+
+            transform.position = new Vector3(startPos + distance, transform.position.y, transform.position.z);
+
+            if (movement > startPos + length) startPos += length;
+            else if (movement < startPos - length) startPos -= length;
         }
     }
 }
