@@ -67,6 +67,7 @@ public class LevelExit : MonoBehaviour
         if (stage <= 3) return "LES_" + stage;
         else if (stage <= 6) return "PUST_" + (stage - 3);
         else if (stage <= 9) return "MESTO_" + (stage - 6);
+        else if (stage >= 9) return "TOWER_" + (stage - 9);
         else return "Menu";
     }
 }

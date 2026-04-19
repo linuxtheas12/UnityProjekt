@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PUST_3.unity
     guid: ca58c09aa1a71ab4e8af144b2445aac8
+  - enabled: 1
+    path: Assets/Scenes/TOWER_1.unity
+    guid: 3e3b0e2a1cffacc439493a89910ae538
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: df2eafff9a5eaea4fba0760557ead947, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 65f65cb8ec0c86f4cbb114916e7f16f2, type: 3}

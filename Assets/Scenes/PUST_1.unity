@@ -1184,7 +1184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
   visualCue: {fileID: 166157366}
-  fallbackTheme: people and life
+  fallbackTheme: People & Life
   npcNameForUI: Savage Camel
 --- !u!1 &235429751
 GameObject:

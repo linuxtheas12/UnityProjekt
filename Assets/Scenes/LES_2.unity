@@ -1414,7 +1414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
   visualCue: {fileID: 166157366}
-  fallbackTheme: people and life
+  fallbackTheme: People & Life
   npcNameForUI: Wise Mythical Tree
 --- !u!1 &252581833
 GameObject:

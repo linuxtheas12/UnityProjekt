@@ -1473,7 +1473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
   visualCue: {fileID: 166157366}
-  fallbackTheme: people and life
+  fallbackTheme: People & Life
   npcNameForUI: Jimmy the Joker
 --- !u!1 &228020853
 GameObject:
