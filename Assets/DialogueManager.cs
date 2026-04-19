@@ -165,14 +165,21 @@ public class DialogueManager : MonoBehaviour
         DisplayChoices();
     }
 
-    private IEnumerator ExitDialogueMode()
-    {
-        yield return new WaitForSeconds(0.2f);
-        dialogueIsPlaying = false;
-        dialoguePanel.SetActive(false);
-        dialogueText.text = "";
-        currentQuestion = null;
-    }
+private IEnumerator ExitDialogueMode()
+{
+    yield return new WaitForSeconds(0.2f);
+    dialogueIsPlaying = false;
+    dialoguePanel.SetActive(false);
+    dialogueText.text = "";
+    currentQuestion = null;
+    inputReleased = false; // ← reset
+    canMakeChoice = true;  // ← reset
+    canMoveChoice = true;  // ← reset
+    
+    // Odselektuj UI tlačidlo aby klávesnica neskákala na UI
+    if (EventSystem.current != null)
+        EventSystem.current.SetSelectedGameObject(null);
+}
 
     private void DisplayChoices()
     {

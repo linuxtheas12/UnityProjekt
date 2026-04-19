@@ -2551,7 +2551,7 @@ GameObject:
   - component: {fileID: 495386868}
   - component: {fileID: 495386867}
   - component: {fileID: 495386870}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: "Plo\u0161ina_idiom"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
