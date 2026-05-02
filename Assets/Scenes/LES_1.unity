@@ -1520,6 +1520,13 @@ MonoBehaviour:
   visualCue: {fileID: 166157366}
   fallbackTheme: People & Life
   npcNameForUI: Wise Mythical Tree
+  cielovyPocetSpravnychOdpovedi: 3
+  vyzadovatZaSebou: 0
+  maxPocetChyb: 1
+  resetProgressAfterPunishment: 0
+  onPunishmentTriggered:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &252581833
 GameObject:
   m_ObjectHideFlags: 0
@@ -3561,7 +3568,6 @@ MonoBehaviour:
   - {fileID: 1673701226}
   - {fileID: 1401853071}
   - {fileID: 370177460}
-  canGoToNextLevel: 0
 --- !u!1 &718478793
 GameObject:
   m_ObjectHideFlags: 0

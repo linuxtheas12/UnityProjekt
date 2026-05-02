@@ -22,14 +22,17 @@ public class DialogueManager : MonoBehaviour
     public bool dialogueIsPlaying { get; private set; }
 
     [Header("Level Progress")]
-    public bool canGoToNextLevel = false;
+    // Táto premenná teraz slúži ako globálny indikátor pre LevelExit
+    private bool levelComplete = false;
 
     private int currentChoiceIndex = 0;
     private bool canMakeChoice = true;
     private bool canMoveChoice = true;
     private bool inputReleased = false;
 
-    // JSON Dátové premenné
+    // Referencia na trigger, ktorý otvoril aktuálny dialóg
+    private DialogueTrigger currentActiveTrigger;
+
     private QuestionData currentQuestion;
     private enum DialogueState { AskingQuestion, ShowingResult }
     private DialogueState currentState;
@@ -58,7 +61,6 @@ public class DialogueManager : MonoBehaviour
     {
         if (!dialogueIsPlaying) return;
 
-        // Ošetrenie vstupu
         if (!inputReleased)
         {
             if (!Input.GetKey(KeyCode.E) && !Input.GetKey(KeyCode.Return))
@@ -67,14 +69,12 @@ public class DialogueManager : MonoBehaviour
                 return;
         }
 
-        // Ak sa zobrazuje výsledok (správna/nesprávna odpoveď) a hráč stlačí E/Enter, ukonči dialóg
         if (currentState == DialogueState.ShowingResult && (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return)))
         {
             StartCoroutine(ExitDialogueMode());
             return;
         }
 
-        // Ak hráč vyberá z možností
         if (currentState == DialogueState.AskingQuestion)
         {
             if (Input.GetKeyDown(KeyCode.RightArrow) && canMoveChoice)
@@ -98,6 +98,79 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator ChoiceMoveCooldown() { canMoveChoice = false; yield return new WaitForSeconds(0.2f); canMoveChoice = true; }
     private IEnumerator ChoiceSelectCooldown() { canMakeChoice = false; yield return new WaitForSeconds(0.2f); canMakeChoice = true; }
 
+    // --- LOGIKA PRE LEVEL EXIT ---
+    public void SetLevelComplete(bool status) { levelComplete = status; }
+    public bool CheckIfLevelIsComplete() { return levelComplete; }
+
+    public void EnterDialogueMode(QuestionData questionData, string npcOverrideName, DialogueTrigger triggerSource)
+    {
+        currentQuestion = questionData;
+        currentActiveTrigger = triggerSource;
+        dialogueIsPlaying = true;
+        dialoguePanel.SetActive(true);
+        inputReleased = false;
+        currentState = DialogueState.AskingQuestion;
+
+        // VYMAŽ ALEBO ZAKOMENTUJ TENTO RIADOK:
+        // canGoToNextLevel = false;  <-- Toto spôsobovalo problém
+
+        if (!string.IsNullOrEmpty(npcOverrideName))
+            dialogueText.text = $"{npcOverrideName}: {currentQuestion.questionText}";
+        else
+            dialogueText.text = currentQuestion.questionText;
+
+        DisplayChoices();
+    }
+
+    // Pre spätnú kompatibilitu, ak by si niekde volal starú verziu bez triggeru
+    public void EnterDialogueMode(QuestionData questionData, string npcOverrideName)
+    {
+        EnterDialogueMode(questionData, npcOverrideName, null);
+    }
+
+    private void MakeChoice(int index)
+    {
+        foreach (var choiceBtn in choices) choiceBtn.SetActive(false);
+
+        bool isCorrect = (index == currentQuestion.correctAnswerIndex);
+
+        if (isCorrect)
+        {
+            dialogueText.text = $"Barbas: {currentQuestion.correctResponse}";
+            if (correctSoundSource != null) correctSoundSource.Play();
+        }
+        else
+        {
+            dialogueText.text = $"Barbas: {currentQuestion.wrongResponseHint}";
+            if (wrongSoundSource != null) wrongSoundSource.Play();
+        }
+
+        // ODOVZDANIE VÝSLEDKU DO TRIGGERU (TU SA POČÍTAJÚ BODY A TRESTY)
+        if (currentActiveTrigger != null)
+        {
+            currentActiveTrigger.SpracujVysledokOdpovede(isCorrect);
+        }
+
+        currentState = DialogueState.ShowingResult;
+    }
+
+    private IEnumerator ExitDialogueMode()
+    {
+        yield return new WaitForSeconds(0.2f);
+        dialogueIsPlaying = false;
+        dialoguePanel.SetActive(false);
+        dialogueText.text = "";
+        currentQuestion = null;
+        currentActiveTrigger = null; // Vyčistíme referenciu
+        inputReleased = false;
+        canMakeChoice = true;
+        canMoveChoice = true;
+
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    // --- ZVYŠOK UI LOGIKY ---
     void UpdateChoiceUI()
     {
         for (int i = 0; i < currentQuestion.options.Length; i++)
@@ -105,9 +178,7 @@ public class DialogueManager : MonoBehaviour
             choicesText[i].color = Color.white;
             UnityEngine.UI.Image btnImage = choices[i].GetComponent<UnityEngine.UI.Image>();
             if (btnImage != null)
-            {
                 btnImage.color = (i == currentChoiceIndex) ? new Color(0f, 0f, 0f, 0.78f) : new Color(0f, 0f, 0f, 0f);
-            }
         }
     }
 
@@ -118,73 +189,8 @@ public class DialogueManager : MonoBehaviour
         UpdateChoiceUI();
     }
 
-    private void MakeChoice(int index)
-    {
-        foreach (var choiceBtn in choices) choiceBtn.SetActive(false);
-
-        // Získame meno, ktoré je momentálne zobrazené v dialogueText (pred dvojbodkou)
-        // Alebo jednoduchšie: premennú npcOverrideName si ulož ako private v DialogueManageri
-
-        if (index == currentQuestion.correctAnswerIndex)
-        {
-            // Namiesto currentQuestion.evaluatorName môžeme použiť tón Barbas (ak je to vždy on) 
-            // alebo meno NPC, ktoré sme práve použili.
-            dialogueText.text = $"Barbas: {currentQuestion.correctResponse}";
-            canGoToNextLevel = true;
-            if (correctSoundSource != null) correctSoundSource.Play();
-        }
-        else
-        {
-            dialogueText.text = $"Barbas: {currentQuestion.wrongResponseHint}";
-            canGoToNextLevel = false;
-            if (wrongSoundSource != null) wrongSoundSource.Play();
-        }
-
-        currentState = DialogueState.ShowingResult;
-    }
-
-    public void EnterDialogueMode(QuestionData questionData, string npcOverrideName)
-    {
-        currentQuestion = questionData;
-        dialogueIsPlaying = true;
-        dialoguePanel.SetActive(true);
-        inputReleased = false;
-        canGoToNextLevel = false;
-        currentState = DialogueState.AskingQuestion;
-
-        // Kontrola, či je meno zadané (aby sme sa vyhli prázdnej dvojbodke ":")
-        if (!string.IsNullOrEmpty(npcOverrideName))
-        {
-            dialogueText.text = $"{npcOverrideName}: {currentQuestion.questionText}";
-        }
-        else
-        {
-            dialogueText.text = currentQuestion.questionText;
-        }
-
-        DisplayChoices();
-    }
-
-private IEnumerator ExitDialogueMode()
-{
-    yield return new WaitForSeconds(0.2f);
-    dialogueIsPlaying = false;
-    dialoguePanel.SetActive(false);
-    dialogueText.text = "";
-    currentQuestion = null;
-    inputReleased = false; // ← reset
-    canMakeChoice = true;  // ← reset
-    canMoveChoice = true;  // ← reset
-    
-    // Odselektuj UI tlačidlo aby klávesnica neskákala na UI
-    if (EventSystem.current != null)
-        EventSystem.current.SetSelectedGameObject(null);
-}
-
     private void DisplayChoices()
     {
-        if (currentQuestion.options.Length > choices.Length) Debug.LogError("Otázka má viac možností ako je pripravených UI tlačidiel!");
-
         int index = 0;
         foreach (string option in currentQuestion.options)
         {
@@ -201,8 +207,11 @@ private IEnumerator ExitDialogueMode()
 
     private IEnumerator SelectFirstChoice()
     {
-        EventSystem.current.SetSelectedGameObject(null);
-        yield return new WaitForEndOfFrame();
-        EventSystem.current.SetSelectedGameObject(choices[0]);
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            yield return new WaitForEndOfFrame();
+            EventSystem.current.SetSelectedGameObject(choices[0]);
+        }
     }
 }
