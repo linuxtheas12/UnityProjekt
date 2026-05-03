@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -7,18 +7,25 @@ public class SceneTransition : MonoBehaviour
 {
     public static SceneTransition Instance;
 
-    [SerializeField] private RectTransform blackBlock; // Sem vloû ten Ëierny Image
+    [SerializeField] private RectTransform blackBlock;
     [SerializeField] private float transitionSpeed = 1.5f;
 
     private float screenWidth;
+    private Canvas myCanvas;
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Prechod preûije zmenu scÈny
-            screenWidth = Screen.width + 100; // Mal· rezerva
+            DontDestroyOnLoad(gameObject);
+
+            // Nastavenie ≈°√≠rky bloku
+            screenWidth = Screen.width + 100;
+
+            myCanvas = GetComponent<Canvas>();
+            // Prirad√≠me kameru hneƒè pri prvom vytvoren√≠
+            UpdateCamera();
         }
         else
         {
@@ -26,9 +33,45 @@ public class SceneTransition : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // T√°to funkcia sa spust√≠ v≈ædy po naƒç√≠tan√≠ novej sc√©ny
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        UpdateCamera();
+    }
+
+    // Samostatn√° funkcia na hƒæadanie kamery, ktor√∫ m√¥≈æeme vola≈• kedykoƒævek
+    public void UpdateCamera()
+    {
+        if (myCanvas != null)
+        {
+            // Sk√∫sime n√°js≈• MainCamera cez Tag
+            myCanvas.worldCamera = Camera.main;
+
+            // Ak ju nena≈°lo cez tag, n√°jdeme proste prv√∫ kameru v sc√©ne
+            if (myCanvas.worldCamera == null)
+            {
+                myCanvas.worldCamera = GameObject.FindObjectOfType<Camera>();
+            }
+
+            // Nastav√≠me Plane Distance na mal√∫ hodnotu, aby bol prechod bl√≠zko kamery
+            myCanvas.planeDistance = 1;
+
+            Debug.Log("SceneTransition: Kamera priraden√° -> " + (myCanvas.worldCamera != null ? myCanvas.worldCamera.name : "NEN√ÅJDEN√Å"));
+        }
+    }
+
     private void Start()
     {
-        // HneÔ pri ötarte odhalÌme svet (Zprava doæava)
         StartCoroutine(RevealScene());
     }
 
@@ -37,7 +80,6 @@ public class SceneTransition : MonoBehaviour
         StartCoroutine(ExitScene(sceneName));
     }
 
-    // Odhalenie sveta (Ëierny blok odch·dza z 0 na -screenWidth)
     private IEnumerator RevealScene()
     {
         float timer = 0;
@@ -53,14 +95,12 @@ public class SceneTransition : MonoBehaviour
         blackBlock.anchoredPosition = endPos;
     }
 
-    // Zakrytie sveta (Ëierny blok prich·dza z screenWidth na 0)
     private IEnumerator ExitScene(string sceneName)
     {
         float timer = 0;
         Vector2 startPos = new Vector2(screenWidth, 0);
         Vector2 endPos = Vector2.zero;
 
-        // NastavÌme poËiatoËn˙ pozÌciu pred zaËiatkom pohybu
         blackBlock.anchoredPosition = startPos;
 
         while (timer < 1f)
@@ -71,8 +111,12 @@ public class SceneTransition : MonoBehaviour
         }
         blackBlock.anchoredPosition = endPos;
 
-        // NaËÌtanie scÈny a n·slednÈ odhalenie v novej scÈne
+        // Naƒç√≠tanie sc√©ny
         yield return SceneManager.LoadSceneAsync(sceneName);
+
+        // Po naƒç√≠tan√≠ sc√©ny pre istotu znova skontrolujeme kameru
+        UpdateCamera();
+
         StartCoroutine(RevealScene());
     }
 }

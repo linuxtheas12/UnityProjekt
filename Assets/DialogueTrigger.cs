@@ -155,12 +155,7 @@ public class DialogueTrigger : MonoBehaviour
             float scale = Random.Range(0.5f, 1.5f);
             obj.transform.localScale = new Vector3(scale, scale, 1f);
 
-            // náhodná rýchlosť
-            PuppyRise pr = obj.GetComponent<PuppyRise>();
-            if (pr != null)
-            {
-                pr.speed = Random.Range(1f, 4f);
-            }
+       
         }
     }
 
