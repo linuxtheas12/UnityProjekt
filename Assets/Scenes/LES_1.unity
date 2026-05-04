@@ -887,7 +887,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b9a2c30850c3d4e9f47ea21221559b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  requireLevelComplete: 1
   delayBeforeSceneLoad: 0
+  useCustomTargetScene: 0
+  customTargetScene: Menu
   exitSound: {fileID: 188691810}
 --- !u!1 &89277612
 GameObject:
@@ -1520,13 +1523,21 @@ MonoBehaviour:
   visualCue: {fileID: 166157366}
   fallbackTheme: People & Life
   npcNameForUI: Wise Mythical Tree
-  cielovyPocetSpravnychOdpovedi: 3
+  cielovyPocetSpravnychOdpovedi: 1
   vyzadovatZaSebou: 0
+  completionAction: 0
+  sceneToLoadOnComplete: LES_2
   maxPocetChyb: 1
   resetProgressAfterPunishment: 0
   onPunishmentTriggered:
     m_PersistentCalls:
       m_Calls: []
+  audioSource: {fileID: 0}
+  wrongAnswerSound: {fileID: 0}
+  puppyPrefab: {fileID: 0}
+  pocetSteniatok: 10
+  spawnWidth: 8
+  spawnY: -5
 --- !u!1 &252581833
 GameObject:
   m_ObjectHideFlags: 0

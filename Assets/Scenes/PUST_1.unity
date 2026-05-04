@@ -496,7 +496,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b9a2c30850c3d4e9f47ea21221559b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  requireLevelComplete: 1
   delayBeforeSceneLoad: 0.5
+  useCustomTargetScene: 0
+  customTargetScene: Menu
   exitSound: {fileID: 188691810}
 --- !u!1 &83732832
 GameObject:
@@ -1186,6 +1189,21 @@ MonoBehaviour:
   visualCue: {fileID: 166157366}
   fallbackTheme: People & Life
   npcNameForUI: Savage Camel
+  cielovyPocetSpravnychOdpovedi: 1
+  vyzadovatZaSebou: 0
+  completionAction: 0
+  sceneToLoadOnComplete: PUST_2
+  maxPocetChyb: 1
+  resetProgressAfterPunishment: 1
+  onPunishmentTriggered:
+    m_PersistentCalls:
+      m_Calls: []
+  audioSource: {fileID: 0}
+  wrongAnswerSound: {fileID: 0}
+  puppyPrefab: {fileID: 0}
+  pocetSteniatok: 10
+  spawnWidth: 8
+  spawnY: -5
 --- !u!1 &235429751
 GameObject:
   m_ObjectHideFlags: 0
@@ -3228,7 +3246,6 @@ MonoBehaviour:
   - {fileID: 576187319}
   - {fileID: 1585709886}
   - {fileID: 423648065}
-  canGoToNextLevel: 0
 --- !u!1 &738369064
 GameObject:
   m_ObjectHideFlags: 0
@@ -5768,6 +5785,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1473164862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1473164863}
+  - component: {fileID: 1473164864}
+  m_Layer: 0
+  m_Name: QuestionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1473164863
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473164862}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2013346779}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1473164864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473164862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe1bd716a7ba6a42b040613e93d6c23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuestionManager
+  jsonFile: {fileID: 4900000, guid: d4a47b2ce244ef0449dacd86f92e39ef, type: 3}
 --- !u!1 &1497217950
 GameObject:
   m_ObjectHideFlags: 0
@@ -8279,6 +8341,7 @@ Transform:
   m_Children:
   - {fileID: 89277613}
   - {fileID: 699521578}
+  - {fileID: 1473164863}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2073276789
