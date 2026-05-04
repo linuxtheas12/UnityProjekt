@@ -1503,8 +1503,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "SCRUM : David pury\ndesign : Artur V\xEDtek\nProgramovanie : Marek Mate\xE1\u0161\nZvuky
-    : Pixabay, google library\nFont : hey Comic"
+  m_text: "SCRUM : David pury\ndesign : Artur V\xEDtek\nProgramovanie : Marek Mate\xE1\u0161,
+    David Pury, Samuel KOv\xE1\u010D\nZvuky : Pixabay, google library\nFont : hey
+    Comic"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
   m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
