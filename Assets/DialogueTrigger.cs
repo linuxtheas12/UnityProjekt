@@ -1,8 +1,15 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class DialogueTrigger : MonoBehaviour
 {
+    private enum CompletionAction
+    {
+        UnlockLevelExit,
+        LoadSceneImmediately
+    }
+
     [Header("Visual Cue")]
     [SerializeField] private GameObject visualCue;
 
@@ -16,6 +23,10 @@ public class DialogueTrigger : MonoBehaviour
     [SerializeField] private int cielovyPocetSpravnychOdpovedi = 3;
 
     [SerializeField] private bool vyzadovatZaSebou = false;
+
+    [Header("Level Completion")]
+    [SerializeField] private CompletionAction completionAction = CompletionAction.UnlockLevelExit;
+    [SerializeField] private string sceneToLoadOnComplete = "Menu";
 
     [Header("Punishment Settings")]
     [SerializeField] private int maxPocetChyb = 1;
@@ -176,6 +187,29 @@ public class DialogueTrigger : MonoBehaviour
         ulohaSplnena = true;
         DialogueManager.GetInstance().SetLevelComplete(true);
         Debug.Log($"NPC {npcNameForUI} spokojný. Cesta voľná!");
+
+        if (completionAction == CompletionAction.LoadSceneImmediately)
+        {
+            LoadCompletedScene();
+        }
+    }
+
+    private void LoadCompletedScene()
+    {
+        if (string.IsNullOrWhiteSpace(sceneToLoadOnComplete))
+        {
+            Debug.LogWarning($"{name}: Nie je nastavena scena po dokonceni ulohy.");
+            return;
+        }
+
+        if (SceneTransition.Instance != null)
+        {
+            SceneTransition.Instance.ChangeScene(sceneToLoadOnComplete);
+        }
+        else
+        {
+            SceneManager.LoadScene(sceneToLoadOnComplete);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)

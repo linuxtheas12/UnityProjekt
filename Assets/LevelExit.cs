@@ -5,7 +5,10 @@ using UnityEngine.SceneManagement;
 public class LevelExit : MonoBehaviour
 {
     [Header("Nastavenia")]
+    [SerializeField] private bool requireLevelComplete = true;
     [SerializeField] private float delayBeforeSceneLoad = 0.5f;
+    [SerializeField] private bool useCustomTargetScene = false;
+    [SerializeField] private string customTargetScene = "Menu";
 
     [Header("Zvuk")]
     [SerializeField] private AudioSource exitSound;
@@ -19,7 +22,7 @@ public class LevelExit : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             // Kontrola cez DialogueManager, či hráč splnil podmienky (počet správnych odpovedí)
-            if (DialogueManager.GetInstance().CheckIfLevelIsComplete())
+            if (!requireLevelComplete || IsLevelComplete())
             {
                 StartCoroutine(ExecuteExit());
             }
@@ -29,6 +32,19 @@ public class LevelExit : MonoBehaviour
                 // Tu môžeš pridať napr. UI text: "Musíš najprv presvedčiť NPC!"
             }
         }
+    }
+
+    private bool IsLevelComplete()
+    {
+        DialogueManager dialogueManager = DialogueManager.GetInstance();
+
+        if (dialogueManager == null)
+        {
+            Debug.LogWarning($"{name}: DialogueManager nie je v scene, preto LevelExit nevie skontrolovat ulohu.");
+            return false;
+        }
+
+        return dialogueManager.CheckIfLevelIsComplete();
     }
 
     private IEnumerator ExecuteExit()
@@ -41,7 +57,14 @@ public class LevelExit : MonoBehaviour
         }
 
         GameSession.aktualnyStage++;
-        string nextScene = CalculateNextSceneName(GameSession.aktualnyStage);
+        string nextScene = GetTargetSceneName();
+
+        if (string.IsNullOrWhiteSpace(nextScene))
+        {
+            Debug.LogWarning($"{name}: Nie je nastavena cielova scena pre LevelExit.");
+            isExiting = false;
+            yield break;
+        }
 
         if (SceneTransition.Instance != null)
         {
@@ -52,6 +75,16 @@ public class LevelExit : MonoBehaviour
             yield return new WaitForSeconds(delayBeforeSceneLoad);
             SceneManager.LoadScene(nextScene);
         }
+    }
+
+    private string GetTargetSceneName()
+    {
+        if (useCustomTargetScene)
+        {
+            return customTargetScene;
+        }
+
+        return CalculateNextSceneName(GameSession.aktualnyStage);
     }
 
     private string CalculateNextSceneName(int stage)
